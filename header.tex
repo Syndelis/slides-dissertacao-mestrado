@@ -1,0 +1,82 @@
+\usetheme{src/sintef}
+\usefonttheme[onlymath]{serif}
+\titlebackground*{beamerthemesrc/assets/background}
+\setbeamertemplate{caption}[numbered]
+%-------------add your packages here-------------
+\usepackage[portuguese]{babel}
+\usepackage{amsfonts,amsmath,oldgerm}
+\usepackage{subfig}
+\usepackage{graphicx}
+
+\usepackage{tcolorbox}
+\usepackage{adjustbox}
+\usepackage{listings, listings-rust}
+
+\usepackage{colortbl}
+\usepackage{nicefrac, xfrac}
+
+%-------------add your commands here-------------
+\newcommand{\hrefcol}[2]{\textcolor{cyan}{\href{#1}{#2}}}
+\newcommand{\testcolor}[1]{\colorbox{#1}{\textcolor{#1}{test}}~\texttt{#1}}
+
+%-------------lst settings-----------------------
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+\definecolor{midgray}{gray}{.5}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+\definecolor{template_brackes}{HTML}{0431FA}
+\definecolor{template_keyword}{HTML}{859900}
+\definecolor{template_magic_variable}{HTML}{268BD2}
+
+\lstdefinelanguage{jinja2}{
+    basicstyle=\normalfont\ttfamily,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    literate=
+     *{\{}{{{\color{template_brackes}\{}}}{1}
+      {\}}{{{\color{template_brackes}\}}}}{1}
+      {(}{{{\color{template_brackes}(}}}{1}
+      {)}{{{\color{template_brackes})}}}{1}
+      {\%}{{{\color{template_brackes}\%}}}{1}
+      {loop}{{{\color{template_magic_variable}loop}}}{4}
+      {recursive}{{{\color{template_keyword}recursive}}}{9}
+      {if}{{{\color{template_keyword}if}}}{2}
+      {else}{{{\color{template_keyword}else}}}{4}
+      {for}{{{\color{template_keyword}for}}}{3}
+      {endif}{{{\color{template_keyword}endif}}}{5}
+      {endfor}{{{\color{template_keyword}endfor}}}{6}
+      {set}{{{\color{template_keyword}set}}}{3}
+      {not}{{{\color{template_keyword}not}}}{3}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
