@@ -78,10 +78,16 @@
 \begin{frame}{Geração de código}
     \begin{itemize}
         \item Recebe como entrada uma Representação Intermediária (RI) e gera como saída um código na linguagem alvo (por exemplo, Python).
+        \item Aplicações da RI: 
+        \begin{itemize}
+            \item Separar o \textit{front-end} do \textit{back-end};
+            \item Permitir que sejam realizadas otimizações independente de máquina ou otimizações independente da linguagem alvo; 
+            \item Para facilitar a tradução e geração do código alvo.
+        \end{itemize}
     \end{itemize}    
 \end{frame}
 
-\begin{frame}{Geração de código baseada em \textit{templates}}[fragile]
+\begin{frame}{Geração de código baseada em \textit{templates}}
     \begin{itemize}
         \item Um \textit{template} é um esqueleto (uma estrutura) que serve de referência para todo o processo de geração de código.
         \item Em sua essência, \textit{templates} são arquivos com marcadores especiais que podem ser substituídos por outros valores dinamicamente.        
@@ -110,4 +116,7 @@
 %         \caption{Visão geral do ciclo da modelagem.}
 %         \label{fig:ciclo-modelagem}
 %     \end{figure}
+% \end{frame}
+
+%\begin{frame}{Trabalhos Relacionados}
 % \end{frame}
