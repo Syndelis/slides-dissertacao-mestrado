@@ -60,10 +60,11 @@
     
 \begin{frame}{Programação visual}
     \begin{itemize}
-        \item É uma maneira do usuário programar a máquina por meio de elementos gráficos que abstraem instruções do computador. \item Os elementos podem representar múltiplas operações por vez, com o objetivo de facilitar a programação.
+        \item É uma maneira do usuário programar a máquina por meio de elementos gráficos que abstraem instruções do computador.
+        \item Os elementos podem representar múltiplas operações por vez, com o objetivo de facilitar a programação.
         \item Exemplos: GRAIL, Scratch, Logisim, Blender. 
-        \item Editores baseados em nós são muitos usados porque possuem uma representação natural para operações complexas que combinam um conjunto de entradas para gerar uma ou mais saídas. 
-    \end{itemize}    
+        \item Um exemplo comum de aplicação envolve editores baseados em nós, que representam operações complexas de forma natural, combinando um conjunto de entradas para gerar uma ou mais saídas.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Programação visual} 
@@ -80,43 +81,47 @@
         \item Recebe como entrada uma Representação Intermediária (RI) e gera como saída um código na linguagem alvo (por exemplo, Python).
         \item Aplicações da RI: 
         \begin{itemize}
-            \item Separar o \textit{front-end} do \textit{back-end};
+            \item Separar o \textit{front-end} do compilador do \textit{back-end};
             \item Permitir que sejam realizadas otimizações independente de máquina ou otimizações independente da linguagem alvo; 
             \item Para facilitar a tradução e geração do código alvo.
         \end{itemize}
+        \item Exemplo: LLVM IR, usada originalmente para compilar códigos em C/C++ pelo Clang, e agora também usada na compilação de códigos em Rust.
     \end{itemize}    
 \end{frame}
 
 \begin{frame}{Geração de código baseada em \textit{templates}}
     \begin{itemize}
         \item Um \textit{template} é um esqueleto (uma estrutura) que serve de referência para todo o processo de geração de código.
-        \item Em sua essência, \textit{templates} são arquivos com marcadores especiais que podem ser substituídos por outros valores dinamicamente.        
-    \end{itemize}    
+        \item Em sua essência, \textit{templates} são arquivos com marcadores especiais que podem ser substituídos por outros valores dinamicamente.
+        \item A presença de estruturas de controle de fluxo como condicionais e laços de repetição permitem a escrita de \textit{templates} legíveis e de fácil manutenção.
+    \end{itemize}
 \end{frame}
 
-% \begin{lstlisting}[language=Python, firstnumber=1]
-%     from scipy.integrate import solve_ivp
-%     import numpy as np
-%     import pandas as pd
-    
-%     def odeSystem(t, P, {% for key, value in params %}{%if loop.is_last%} {{key}} {%else%} {{key}}, {%endif%}{%endfor%}):
-%     ## for key, value in vars
-%         {{key}} = P[{{loop.index}}]
-%     ## endfor
-%     ## for key, value in odes
-%         d{{key}}_dt = {{value}}
-%     ## endfor     
-%         return  [{% for key, value in odes %}{%if loop.is_last%} d{{key}}_dt {%else%} d{{key}}_dt, {%endif%}{%endfor%}]
-% \end{lstlisting}
+\begin{frame}[fragile]{Geração de código baseada em \textit{templates}}
+    \begin{minted}{python}
+    def system(t: np.float64, y: np.ndarray, *constants) -> np.ndarray:
+        {% for arg in populations -%}
+            {{- arg.name }}, {%- endfor %} = y
+
+        {%- if constants %}
+        {% for arg in constants -%}
+            {{- arg.name }}, {%- endfor %} = constants
+        {% endif -%}
+
+        {% for pop in populations %}
+        {%- set comp = model.arguments[equations[pop.name].argument] %}
+        d{{ pop.name }}_dt = {{ display_composite(comp) }}
+        {%- endfor %}
+
+        # ...
+    \end{minted}
+\end{frame}
 
 % \begin{frame}{Ensino-aprendizagem de Modelagem Computacional}
 %     \begin{figure}[h]
 %         \centering
-%         \includegraphics[scale=0.5]{imgs/ciclo-modelagem.png} 
+%         \includegraphics[scale=0.5]{contents/imgs/ciclo-modelagem.png} 
 %         \caption{Visão geral do ciclo da modelagem.}
 %         \label{fig:ciclo-modelagem}
 %     \end{figure}
-% \end{frame}
-
-%\begin{frame}{Trabalhos Relacionados}
 % \end{frame}
