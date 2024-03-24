@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - '**.tex'
+      - '**.sty'
+      - '**.bib'
+      - '.latexmkrc'
       - 'beamerthemesrc/**'
       - 'contents/**'
       - '.github/**/*.yml'
@@ -26,6 +29,10 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: main.tex
+
+      - name: Move output into root
+        shell: bash
+        run: mv out/main.pdf .
 
       - name: Commit PDF
         uses: stefanzweifel/git-auto-commit-action@v4
