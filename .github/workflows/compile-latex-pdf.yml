@@ -31,11 +31,9 @@ jobs:
           root_file: main.tex
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode -outdir=out
 
-      - name: Move output into root
+      - name: Copy the output PDF into root
         shell: bash
-        run: |
-          chown -R $(whoami) out
-          mv out/main.pdf .
+        run: cp out/main.pdf .
 
       - name: Commit PDF
         uses: stefanzweifel/git-auto-commit-action@v4
