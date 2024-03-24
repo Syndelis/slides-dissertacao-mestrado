@@ -29,6 +29,7 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: main.tex
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode -outdir=out
 
       - name: Move output into root
         shell: bash
