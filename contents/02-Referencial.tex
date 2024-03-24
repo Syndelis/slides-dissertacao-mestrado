@@ -66,11 +66,13 @@
     \end{itemize}    
 \end{frame}
 
-\begin{frame}{Programação visual}
-    \item GRaIL — 1968:
-    \href{https://www.youtube.com/watch?v=QQhVQ1UG6aM}{
-        \includegraphics[width=\textwidth, height=\textheight, keepaspectratio=true]{beamerthemesrc/images/video-thumb.png}
-    }
+\begin{frame}{Programação visual} 
+    \begin{itemize}
+        \item GRaIL — 1968:
+        \href{https://www.youtube.com/watch?v=QQhVQ1UG6aM}{
+            \includegraphics[width=\textwidth, height=\textheight, keepaspectratio=true]{beamerthemesrc/images/video-thumb.png}
+        }
+    \end{itemize}     
 \end{frame}
 
 \begin{frame}{Geração de código}
@@ -81,6 +83,31 @@
 
 \begin{frame}{Geração de código baseada em \textit{templates}}
     \begin{itemize}
-        \item 
+        \item Um \textit{template} é um esqueleto (uma estrutura) que serve de referência para todo o processo de geração de código.
+        \item Em sua essência, \textit{templates} são arquivos com marcadores especiais que podem ser substituídos por outros valores dinamicamente.         
     \end{itemize}    
+    \begin{lstlisting}[language=Python, firstnumber=1]
+        from scipy.integrate import solve_ivp
+        import numpy as np
+        import pandas as pd
+        
+        def odeSystem(t, P, {% for key, value in params %}{%if loop.is_last%} {{key}} {%else%} {{key}}, {%endif%}{%endfor%}):
+        ## for key, value in vars
+            {{key}} = P[{{loop.index}}]
+        ## endfor
+        ## for key, value in odes
+            d{{key}}_dt = {{value}}
+        ## endfor     
+            return  [{% for key, value in odes %}{%if loop.is_last%} d{{key}}_dt {%else%} d{{key}}_dt, {%endif%}{%endfor%}]
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{Ensino-aprendizagem de Modelagem Computacional}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.5]{imgs/ciclo-modelagem.png} 
+        \caption{Visão geral do ciclo da modelagem.}
+        \label{fig:ciclo-modelagem}
+    \end{figure}
 \end{frame}

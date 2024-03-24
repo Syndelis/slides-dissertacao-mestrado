@@ -1,0 +1,175 @@
+{
+  "metadata": {
+    "name": "TODO",
+    "type": "ode",
+    "start_time": 0.0,
+    "delta_time": 0.0,
+    "end_time": 0.0,
+    "positions": {
+      "H": {
+        "x": 152.0,
+        "y": 306.0
+      },
+      "H_eq": {
+        "x": 700.0,
+        "y": 251.0
+      },
+      "H_growth": {
+        "x": 466.0,
+        "y": 190.0
+      },
+      "P": {
+        "x": 159.0,
+        "y": 560.0
+      },
+      "P_death": {
+        "x": 473.0,
+        "y": 651.0
+      },
+      "P_eq": {
+        "x": 705.0,
+        "y": 584.0
+      },
+      "Predation": {
+        "x": 470.0,
+        "y": 410.0
+      },
+      "a": {
+        "x": 161.0,
+        "y": 439.0
+      },
+      "dHdt": {
+        "x": 881.0,
+        "y": 310.0
+      },
+      "dPdt": {
+        "x": 898.0,
+        "y": 618.0
+      },
+      "m": {
+        "x": 167.0,
+        "y": 703.0
+      },
+      "r": {
+        "x": 165.0,
+        "y": 153.0
+      }
+    },
+    "extension_files": []
+  },
+  "arguments": [
+    {
+      "name": "P",
+      "value": 10.0
+    },
+    {
+      "name": "H_growth",
+      "operation": "*",
+      "style": "Infixed",
+      "composition": [
+        {
+          "name": "r",
+          "contribution": "+"
+        },
+        {
+          "name": "H",
+          "contribution": "+"
+        }
+      ]
+    },
+    {
+      "name": "m",
+      "value": 0.15
+    },
+    {
+      "name": "a",
+      "value": 0.05
+    },
+    {
+      "name": "H",
+      "value": 30.0
+    },
+    {
+      "name": "r",
+      "value": 0.2
+    },
+    {
+      "name": "P_eq",
+      "operation": "+",
+      "style": "Infixed",
+      "composition": [
+        {
+          "name": "Predation",
+          "contribution": "+"
+        },
+        {
+          "name": "P_death",
+          "contribution": "-"
+        }
+      ]
+    },
+    {
+      "name": "Predation",
+      "operation": "*",
+      "style": "Infixed",
+      "composition": [
+        {
+          "name": "a",
+          "contribution": "+"
+        },
+        {
+          "name": "H",
+          "contribution": "+"
+        },
+        {
+          "name": "P",
+          "contribution": "+"
+        }
+      ]
+    },
+    {
+      "name": "H_eq",
+      "operation": "+",
+      "style": "Infixed",
+      "composition": [
+        {
+          "name": "H_growth",
+          "contribution": "+"
+        },
+        {
+          "name": "Predation",
+          "contribution": "-"
+        }
+      ]
+    },
+    {
+      "name": "P_death",
+      "operation": "*",
+      "style": "Infixed",
+      "composition": [
+        {
+          "name": "m",
+          "contribution": "+"
+        },
+        {
+          "name": "P",
+          "contribution": "+"
+        }
+      ]
+    }
+  ],
+  "equations": [
+    {
+      "name": "dHdt",
+      "operates_on": "H",
+      "argument": "H_eq",
+      "contribution": "+"
+    },
+    {
+      "name": "dPdt",
+      "operates_on": "P",
+      "argument": "P_eq",
+      "contribution": "+"
+    }
+  ]
+}
