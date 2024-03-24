@@ -1,7 +1,7 @@
 \begin{frame}{Visão geral do software}
     \begin{itemize}
         \item O software desenvolvido apresenta uma GUI contendo um editor baseado em nós.
-        \item Os nós representam partes das equações, como parâmetros, populações e expressões.
+        \item Os nós representam partes das equações, como parâmetros, populações e expressões
     \end{itemize}
 
     \begin{figure}
@@ -27,9 +27,25 @@
     \end{columns}
 \end{frame}
 
-% \begin{frame}{Representação visual}
-
-% \end{frame}
+\begin{frame}{Representação visual}
+    \begin{table}
+        \begin{center}
+        \begin{tabular}{ m{0.12\textwidth}m{0.35\textwidth}m{0.4\textwidth} }
+            \toprule
+            Tipo de nó & Usado para representar & Exemplo \\
+            \midrule
+            Termo & Variáveis, parâmetros e constantes. & $H$, $P$, $a$, $b$, $r$, $m$ \\
+            Expressão & Expressões matemáticas que compõem as equações. & \(r.H\), \(a.H.P\), \(r.H - a.H.P\);\\
+            Equação & O lado direito de uma EDO. & \(dH/dt = ...\) \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+    \end{table}
+    \begin{figure}
+        \centering
+        \includegraphics[width=.6\textwidth]{contents/imgs/ode-designer/tipos-nos-slim.png}
+    \end{figure}
+\end{frame}
 
 % \begin{frame}{Árvore de expressões}
 
