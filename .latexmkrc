@@ -1,1 +1,1 @@
-$pdflatex='pdflatex -shell-escape -outdir=out';
+$pdflatex='pdflatex -shell-escape -output-directory=out';
