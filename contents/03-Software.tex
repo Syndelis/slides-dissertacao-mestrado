@@ -136,3 +136,15 @@ def pow(x, y):
         \end{column}
     \end{columns}
 \end{frame}
+
+\begin{frame}{Distribuição do Software}
+    \begin{itemize}
+        \item Como mencionado anteriormente, o software possui dependência do Python, assim como algumas bibliotecas da linguagem.
+        \item Visto que o público-alvo do software não é necessariamente técnico, a maneira como seria distribuído o software se tornou um ponto chave.
+        \item Portanto, foram desenvolvidas automações capazes de compilar e empacotar o software e todas as suas dependências.
+        \begin{itemize}
+            \item Para Linux, o uso de AppImages provê um arquivo único executável.
+            \item Para Windows, SO que não possui uma ferramenta equivalente, uma pasta compactada é distribuída. A pasta contém o executável principal e as dependências necessárias.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
