@@ -30,13 +30,13 @@
 \begin{frame}{Representação visual}
     \begin{table}
         \begin{center}
-        \begin{tabular}{ m{0.12\textwidth}m{0.35\textwidth}m{0.4\textwidth} }
+        \begin{tabular}{ m{0.12\textwidth}m{0.5\textwidth}m{0.25\textwidth} }
             \toprule
             Tipo de nó & Usado para representar & Exemplo \\
             \midrule
             Termo & Variáveis, parâmetros e constantes. & $H$, $P$, $a$, $b$, $r$, $m$ \\
-            Expressão & Expressões matemáticas que compõem as equações. & \(r.H\), \(a.H.P\), \(r.H - a.H.P\);\\
-            Equação & O lado direito de uma EDO. & \(dH/dt = ...\) \\
+            Expressão & Expressões matemáticas que compõem as equações. & \(r.H\), \(a.H.P\), \(r.H - a.H.P\)\\
+            Equação & O lado direito de uma EDO. & \(\frac{dH}{dt} = ...\) \\
             \bottomrule
         \end{tabular}
         \end{center}
@@ -47,134 +47,92 @@
     \end{figure}
 \end{frame}
 
-% \begin{frame}{Árvore de expressões}
+\begin{frame}{Árvore de expressões}
+    \begin{itemize}
+        \item Os nós de Expressão e de Equação carregam consigo árvores de expressões para representar as expressões que constroem.
+        \item As árvores são copiadas e enviadas para os nós relacionados quando algum destes eventos ocorrem na interface:
+        \begin{itemize}
+            \item Mudança de sinal;
+            \item Alteração de nome de nós `Termos';
+            \item Adições ou remoções de ligações;
+        \end{itemize}
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{contents/imgs/expr-tree.png}
+    \end{figure}
+\end{frame}
 
-% \end{frame}
+\begin{frame}{Representação intermediária}
+    \begin{itemize}
+        \item Uma representação intermediária foi desenvolvida para simplificar as transformações dos modelos.
+        \item A GUI apenas precisa transformar seus modelos na RI. A partir disto, a biblioteca de RI pode gerar códigos em Python e gerar a representação para armazenamento em disco.
+        \item A RI foi projetada para ser humanamente legível, possibilitando a recuperação do modelo construído na ausência do software.
+    \end{itemize}
+\end{frame}
 
-% \begin{frame}{Representação intermediária}
+\begin{frame}{Geração de código, simulação interativa e exportação de resultados}
+    \begin{itemize}
+        \item Os modelos gerados na interface podem ser convertidos para o código em Python equivalente que implementa a simulação.
+        \item Este mesmo código também é utilizado pela GUI para gerar os dados necessários para a plotagem dos resultados diretamente na interface.
+        \item Similarmente, PDFs podem ser exportados com os mesmos dados.
+        \item A utilização das mesmas funções para todas estas exportações e visualizações garante consistência nos resultados obtidos.
+    \end{itemize}
+\end{frame}
 
-% \end{frame}
+\begin{frame}[fragile]{Geração de código, simulação interativa e exportação de resultados}
+    \begin{minted}[fontsize=\footnotesize]{python}
+    def initial_values() -> np.ndarray:
+        H_0, P_0 = 100.0, 5.0
+        return np.array(( H_0, P_0, ))
 
-% \begin{frame}{Fluxograma de uso simplificado}
-%     \begin{figure}
-%         \centering
-%         \includegraphics[width=\textwidth, height=\textheight, keepaspectratio=true]{beamerthemesrc/images/ode-designer-fluxograma.png}
-%         \caption{Fluxograma da experiência do usuário.}
-%     \end{figure}
-% \end{frame}
+    def constants() -> list:
+        a, b, m, r = 0.015, 0.0125, 0.8, 0.2
+        return [ a, b, m, r, ]
 
-% \begin{frame}{Funcionalidades do Software}
-%     O software deve entregar as seguintes funcionalidades:
-%     \begin{itemize}
-%         \item Criação de modelos pela interface gráfica;
-%         \item Simulação do modelo e exibição dos resultados na interface;
-%         \item Exportação de PDF/Imagens com os resultados das simulações;
-%         \item Exportação de código equivalente ao modelo implementado;
-%     \end{itemize}
-% \end{frame}
+    def variable_names() -> list[str]:
+        return [ "H", "P", ]
 
-% \subsection{Interface Gráfica}
+    def system(t: np.float64, y: np.ndarray, *constants) -> np.ndarray:
+        H,P, = y
+        a,b,m,r, = constants
+        dH_dt = (r * H ) - (a * (H * P ) ) 
+        dP_dt = ((H * P ) * b ) - (P * m ) 
+        return np.array([dH_dt,dP_dt])
+    \end{minted}
+\end{frame}
 
-% \begin{sidepic}{beamerthemesrc/images/ode-designer-gui-exemplo}{Representação do Modelo}
-%     \begin{itemize}
-%         \item O software necessita de uma interface simples de ser usada;
-%             \begin{itemize}
-%                 \item Mas também deve naturalmente relembrar uma EDO;
-%             \end{itemize}
-%         \item Após diversas iterações, chegamos numa interface baseada em programação visual;
-%             \begin{itemize}
-%                 \item Estas interfaces existem desde 1963, mas tiveram uma renascença com o avanço dos computadores e a necessidade de softwares de edição de imagem/áudio/vídeo;
-%             \end{itemize}
-%     \end{itemize}
-% \end{sidepic}
+\begin{frame}[fragile]{Estensibilidade}
+    \begin{itemize}
+        \item É improvável que apenas as operações básicas sejam o suficiente para construir qualquer sistema de EDOs.
+        \item Paralelamente, é impensável construir um software que possui todas as operações matemáticas existentes.
+        \item Portanto, uma funcionalidade de extensões foi desenvolvida. O usuário pode utilizar Python para definir nós e as expressões que eles constroem.
+        \begin{itemize}
+            \item Sendo escrito em Python, o código é apropriado para ser usado nas etapas mencionadas anteriormente, não prejudicando a usabilidade do software.
+            \item O software utiliza de trechos de códigos especiais para injetar e inspecionar o código dos usuários a fim de determinar quais funções deveriam representar nós customizados.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
 
-% \begin{frame}{Fluxo de passagem de informações na interface}
-%     \begin{figure}
-%         \centering
-%         \includegraphics[width=\textwidth, height=\textheight, keepaspectratio=true]{beamerthemesrc/images/fluxo-dados-gui.png}
-%         \caption{Relações entre nós e pinos.}
-%     \end{figure}
-% \end{frame}
+\begin{frame}[fragile]{Estensibilidade}
+    \begin{columns}
+        \begin{column}{.3\textwidth}
+            \begin{minted}{python}
+import math
+@node
+def sin(x):
+    return math.sin(x)
 
-% \subsection{Representação Intermediária}
-
-% \begin{chapter}[beamerthemesrc/assets/background_negative]{}{Representação Intermediária}
-% \end{chapter}
-
-% \begin{frame}{Representação Intermediária}
-%     \begin{itemize}
-%         \item Com o objetivo de realizar tantas transformações, torna-se necessário a utilização de uma Representação Intermediária (RI);
-
-%         \item Inspirados nas arquiteturas de compiladores modernos (GCC, baseados em LLVM), separamos a estrutura em back-end e front-end;
-
-%         \item Essa abordagem garante o desacoplamento entre estrutura e produtos finais;
-%     \end{itemize}
-
-%     \begin{figure}
-%         \centering
-%         \includegraphics[height=\textheight, width=\textwidth, keepaspectratio=true]{beamerthemesrc/images/llvm-ir.png}
-%         \caption{Exemplo de RI: LLVM-IR.}
-%     \end{figure}
-% \end{frame}
-
-% \begin{frame}[fragile]{RI — Serde: Conversões automatizadas para JSON}
-%     \begin{columns}
-%         \begin{column}{.55\textwidth}
-%             \begin{block}{Rust}
-%                 \begin{lstlisting}[language=Rust]
-% #[derive(Serialize, Deserialize)]
-% struct Person {
-%     name: String,
-%     age: u8,
-%     phones: Vec<String>,
-%     address: Address,
-% }
-% #[derive(Serialize, Deserialize)]
-% struct Address {
-%     street: String,
-%     city: String,
-% }
-%                 \end{lstlisting}
-%             \end{block}
-%         \end{column}
-
-%         \begin{column}{.45\textwidth}
-%             \begin{block}{JSON}
-%                 \begin{lstlisting}[language=json, tabsize=2]
-% {
-%   "name": "John Doe",
-%   "age": 43,
-%   "address": {
-%     "street": "1st St.",
-%     "city": "London"
-%   },
-%   "phones": [
-%     "+44 1234567",
-%     "+44 2345678"
-%   ]
-% }
-%                 \end{lstlisting}
-%             \end{block}
-%         \end{column}
-%     \end{columns}
-% \end{frame}
-
-% \begin{frame}[fragile]{RI — \textit{Templates}}
-
-%     \begin{itemize}
-%         \item \texttt{Structs} \textit{serializáveis} podem ser usadas diretamente em \textit{templates};
-%         \item Suponha a variável \texttt{people: Vec<Person>}:
-%     \end{itemize}
-
-%     \begin{block}{minijinja}
-%         \begin{lstlisting}[language=jinja2]
-% {% for person in people %}
-%     {{ person.name }}, {{ person.age }} anos.
-%     Contato: {% for phone_nb in person.phones -%}
-%       {{ phone_nb }}
-%       {%- if not loop.last %}, {% endif -%}
-%     {% endfor %}
-% {% endfor %}
-%         \end{lstlisting}
-%     \end{block}
-% \end{frame}
+@node(format='$1 ^ $2')
+def pow(x, y):
+    return x ** y
+            \end{minted}
+        \end{column}
+        \begin{column}{.7\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=\textwidth]{contents/imgs/ode-designer/ext-sin-pow.png}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
