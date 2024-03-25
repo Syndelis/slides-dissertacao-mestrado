@@ -2,7 +2,8 @@
 \begin{frame}{Equações Diferenciais Ordinárias (EDOs)}
     \begin{itemize}
         \item Usadas para estudar o comportamento populacional ao longo do tempo;
-        \item Diversas aplicações em várias áreas do conhecimento; 
+        \item Diversas aplicações em várias áreas do conhecimento;
+        \note[item]{Exemplos de uso de EDOs: medicina, neurociência, estudo do câncer.}
         \item Cada equação descreve a concentração de uma população diferente;
     \end{itemize}
 
@@ -56,20 +57,33 @@
         \end{column}
     \end{columns}
 
+    \note[item]{
+        Neste modelo, temos os seguintes processos sendo modelados: 
+        \begin{itemize}
+            \item Reprodução das presas ($r.H$);
+            \item Predação ($a.H.P$);
+            \item Reprodução dos predadores ($b.H.P$);
+            \item Morte dos predadores ($m.P$). 
+        \end{itemize}
+    }
+    \note[item]{
+        Termos de replicação, predação e morte como os vistos neste modelo são muito comuns. Estes termos são construídos com base no princípio da Lei de Ação de Massas, que diz que ``O número de interações entre duas partículas depende da concentração de ambas.''
+    }
 \end{frame}
-    
+
 \begin{frame}{Programação visual}
     \begin{itemize}
         \item É uma maneira do usuário programar a máquina por meio de elementos gráficos que abstraem instruções do computador.
         \item Os elementos podem representar múltiplas operações por vez, com o objetivo de facilitar a programação.
         \item Exemplos: GRAIL, Scratch, Logisim, Blender. 
+        \note[item]{A linguagem GRAIL foi desenvolvida junto a uma tela sensível ao toque e uma \textit{stylus}}
         \item Um exemplo comum de aplicação envolve editores baseados em nós, que representam operações complexas de forma natural, combinando um conjunto de entradas para gerar uma ou mais saídas.
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Programação visual} 
     \begin{itemize}
-        \item GRaIL — 1968:
+        \item GRAIL — 1968:
         \href{https://www.youtube.com/watch?v=QQhVQ1UG6aM}{
             \includegraphics[width=\textwidth, height=\textheight, keepaspectratio=true]{beamerthemesrc/images/video-thumb.png}
         }
@@ -83,7 +97,7 @@
         \begin{itemize}
             \item Separar o \textit{front-end} do compilador do \textit{back-end};
             \item Permitir que sejam realizadas otimizações independente de máquina ou otimizações independente da linguagem alvo; 
-            \item Para facilitar a tradução e geração do código alvo.
+            \item Facilitar a tradução e geração do código alvo.
         \end{itemize}
         \item Exemplo: LLVM IR, usada originalmente para compilar códigos em C/C++ pelo Clang, e agora também usada na compilação de códigos em Rust.
     \end{itemize}    
