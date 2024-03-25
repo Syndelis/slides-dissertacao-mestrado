@@ -1,4 +1,4 @@
-\begin{frame}{Conclusões e trabalhos futuros}
+\begin{frame}{Conclusões}
     \begin{itemize}
         \item Neste trabalho, foi desenvolvido um software para automatizar a implementação e simulação de modelos computacionais baseados em EDOs.
         \item A construção das equações do modelo matemático é auxiliada pela representação visual que foi criada permitindo que o usuário acompanhe a construção de todas as expressões e como elas estão sendo combinadas para formar o sistema de EDOs.
@@ -6,7 +6,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Conclusões e trabalhos futuros}
+\begin{frame}{Conclusões}
     \begin{itemize}
         \item Como limitações do trabalho, destaca-se: 
         \begin{itemize}
@@ -16,15 +16,18 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Conclusões e trabalhos futuros}
+\begin{frame}{Trabalhos futuros}
     \begin{itemize}
         \item Como trabalhos futuros, destaca-se: 
         \begin{itemize}
             \item Geração de código e simulação de modelos estocásticos;
-            \item Ajuste de parâmetros; 
+            \note[item]{Modelos estocásticos: utilizando o algoritmo de Gillespie, o mesmo editor de nós e um novo template para a simulação}
+            \item Ajustes de parâmetros; 
+            \note[item]{Ajustes de parâmetros: fornecendo recursos para o carregamento de dados experimentais, escolha dos parâmetros a serem ajustados e plotagens comparativas}
             \item Análise de sensibilidade de parâmetros;
             \item Geração de código e simulação de Equações Diferenciais Parciais (EDPs);
-            \item Desenvolvimento de uma versão Web do software. 
+            \item Desenvolvimento de uma versão Web do software.
+            \note[item]{Web: Rust e as tecnologias usadas na interface gráfica possuem suporte nativo à web (via WebAssebmly). Existem distribuições de Python suportadas no navegador, mas uma solução poderia envolver a execução das simulações do lado do servidor ao invés do cliente.}
         \end{itemize}
     \end{itemize}
 \end{frame}
