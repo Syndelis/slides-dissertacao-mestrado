@@ -1,13 +1,17 @@
 \begin{frame}{Visão geral do software}
     \begin{itemize}
         \item O software desenvolvido apresenta uma GUI contendo um editor baseado em nós.
-        \item Os nós representam partes das equações, como parâmetros, populações e expressões
+        \note[item]{
+            ``Editores baseados em nós'' descreve o tipo de GUI que apresenta blocos (chamados de ``nós''), com 0 ou mais pinos de entrada e saída, de forma que ligações sejam feitas na intenção de continuamente modificar dados, geralmente ocorrendo da esquerda para a direita.
+        }
+        \item Os nós representam partes das equações, como parâmetros, populações e expressões.
     \end{itemize}
 
     \begin{figure}
         \centering
         \includegraphics[width=0.75\textwidth]{contents/imgs/ode-designer/predador-presa-fit.png}
     \end{figure}
+    \note[item]{Na imagem, podemos ver a representação gráfica do modelo predador-presa.}
 \end{frame}
 
 \begin{frame}{Visão geral do software}
@@ -45,6 +49,15 @@
         \centering
         \includegraphics[width=.6\textwidth]{contents/imgs/ode-designer/tipos-nos-slim.png}
     \end{figure}
+    \note[item]{
+        Estes nós foram projetados para minimizar a dificuldade de uso e a necessidade de manuais. Isso é perceptível pelo fato de que:
+        \begin{itemize}
+            \item o nó `Termo' possui nenhum pino de entrada e um pino de saída;
+            \item O nó `Expressão' possui inúmeros pinos de entrada e um pino de saída;
+            \item O nó `Equação' possui um pino de entrada e nenhum pino de saída.
+        \end{itemize}
+        Deta forma, conclui-se que (1) o nó `Termo' pode ser usado como entrada de `Expressões' e `Equações', (2) o nó `Expressão' pode ser entrada de outras `Expressões' e de `Equações' e (3) o nó `Equação' é terminal.
+    }
 \end{frame}
 
 \begin{frame}{Árvore de expressões}
@@ -55,6 +68,9 @@
             \item Mudança de sinal;
             \item Alteração de nome de nós `Termos';
             \item Adições ou remoções de ligações;
+            \note[item]{
+                Estes eventos podem ocorrer também com subexpressões, que cascateiam as alterações até encontrarem um nó terminal e/ou ainda não ligado a um nó final.
+            }
         \end{itemize}
     \end{itemize}
     \begin{figure}
@@ -102,6 +118,10 @@
     \end{minted}
 \end{frame}
 
+\note{
+    Destaca-se a legibilidade do código gerado. Para fins apenas de simulação, o código poderia conter variáveis com nomes aleatórios. Contudo, um dos objetivos é exportar este código para facilitar o entendimento do modelo, bem como a sua utilização como ferramenta no ensino-aprendizagem de modelagem computacional.
+}
+
 \begin{frame}{Geração de código, simulação interativa e exportação de resultados}
     \begin{figure}
         \centering
@@ -114,6 +134,9 @@
         \item É improvável que apenas as operações básicas sejam o suficiente para construir qualquer sistema de EDOs.
         \item Paralelamente, é impensável construir um software que possui todas as operações matemáticas existentes.
         \item Portanto, uma funcionalidade de extensões foi desenvolvida. O usuário pode utilizar Python para definir nós e as expressões que eles constroem.
+        \note[item]{
+            Extensões são distribuídas como arquivos de código em Python, que podem ser facilmente compartilhados entre usuários.
+        }
         \begin{itemize}
             \item Sendo escrito em Python, o código é apropriado para ser usado nas etapas mencionadas anteriormente, não prejudicando a usabilidade do software.
             \item O software utiliza de trechos de códigos especiais para injetar e inspecionar o código dos usuários a fim de determinar quais funções deveriam representar nós customizados.
@@ -126,6 +149,7 @@
         \begin{column}{.3\textwidth}
             \begin{minted}{python}
 import math
+
 @node
 def sin(x):
     return math.sin(x)
